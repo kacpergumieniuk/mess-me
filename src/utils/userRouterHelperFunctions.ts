@@ -6,3 +6,5 @@ export const isUniqueEmail = async (ctx: any, passedEmail: string) => {
   });
   return user;
 };
+
+export const isPasswordCorrect = (password: string) => password.length >= 8;
