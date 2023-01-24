@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { api } from "../../utils/api";
 import { Button } from "../Button";
 import { Navbar } from "../navbar/Navbar";
+import { signIn, useSession } from "next-auth/react";
 
 export const CreateAccount = () => {
   const [emailValue, setEmailValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
+  const { status, data } = useSession();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailRegex =
@@ -30,12 +32,23 @@ export const CreateAccount = () => {
   const mutation = api.user.registerUser.useMutation();
 
   const handleSubmit = () => {
-    console.log(emailValue, passwordValue);
-    mutation.mutate({ email: emailValue, password: passwordValue });
+    /* mutation.mutate({ email: emailValue, password: passwordValue }); */
+    try {
+      signIn("credentials", {
+        email: emailValue,
+        password: passwordValue,
+        callbackUrl: "/dashboard",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <main className="relative h-screen w-screen bg-bg-color text-white">
+    <main
+      className="relative h-screen w-screen bg-bg-color text-white"
+      onClick={() => console.log(status, data)}
+    >
       <Navbar />
       <div className=" px-[46px] text-center">
         <h1 className=" mb-[24px] text-2xl font-black">Create account</h1>

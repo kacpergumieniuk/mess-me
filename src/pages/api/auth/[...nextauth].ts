@@ -9,40 +9,43 @@ import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
-  callbacks: {
+  /* callbacks: {
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
       }
       return session;
     },
-  },
+  }, */
   // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
+
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     CredentialsProvider({
       type: "credentials",
-      credentials: {
-        email: { label: "Email", type: "email", placeholder: "mail" },
-      },
-      authorize(credentials, req) {
+      credentials: {},
+      async authorize(credentials, req) {
         const { email, password } = credentials as {
           email: string;
           password: string;
         };
         // perform you login logic
         // find out user from db
-        if (email !== "john@gmail.com" || password !== "1234") {
-          throw new Error("invalid credentials");
+        const user = await prisma.user.findFirst({
+          where: {
+            email: email,
+            password: password,
+          },
+        });
+        if (!user) {
+          throw new Error("bad use");
         }
-
-        // if everything is fine
-        return {
-          id: "1234",
-          name: "John Doe",
-          email: "john@gmail.com",
-          role: "admin",
-        };
+        return user;
       },
     }),
   ],
