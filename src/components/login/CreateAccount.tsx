@@ -4,6 +4,8 @@ import { Button } from "../Button";
 import { Navbar } from "../navbar/Navbar";
 import { useSession } from "next-auth/react";
 import { LoginPageState } from "../../pages/login";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CreateAccount {
   handleSetLoginPageState: (state: LoginPageState) => void;
@@ -42,6 +44,15 @@ export const CreateAccount = ({ handleSetLoginPageState }: CreateAccount) => {
       {
         onSuccess: () => {
           handleSetLoginPageState("login");
+          toast.success("Account created succesfuly!! 🦄", {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            theme: "light",
+          });
         },
       }
     );
