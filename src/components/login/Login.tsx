@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import { api } from "../../utils/api";
 import { Button } from "../Button";
 import { Navbar } from "../navbar/Navbar";
-import { useSession } from "next-auth/react";
-import { LoginPageState } from "../../pages/login";
+import { signIn, useSession } from "next-auth/react";
 
-interface CreateAccount {
-  handleSetLoginPageState: (state: LoginPageState) => void;
-}
-
-export const CreateAccount = ({ handleSetLoginPageState }: CreateAccount) => {
+export const Login = () => {
   const [emailValue, setEmailValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
@@ -34,17 +28,16 @@ export const CreateAccount = ({ handleSetLoginPageState }: CreateAccount) => {
       : setIsPasswordValid(true);
   };
 
-  const mutation = api.user.registerUser.useMutation();
-
   const handleSubmit = () => {
-    mutation.mutate(
-      { email: emailValue, password: passwordValue },
-      {
-        onSuccess: () => {
-          handleSetLoginPageState("login");
-        },
-      }
-    );
+    try {
+      signIn("credentials", {
+        email: emailValue,
+        password: passwordValue,
+        callbackUrl: "/dashboard",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -54,7 +47,7 @@ export const CreateAccount = ({ handleSetLoginPageState }: CreateAccount) => {
     >
       <Navbar />
       <div className=" px-[46px] text-center">
-        <h1 className=" mb-[24px] text-2xl font-black">Create account</h1>
+        <h1 className=" mb-[24px] text-2xl font-black">Sign up</h1>
         <div className="gap-[8px] text-center">
           <form>
             <input
@@ -84,18 +77,11 @@ export const CreateAccount = ({ handleSetLoginPageState }: CreateAccount) => {
               !passwordValue.length
             }
           >
-            Create account
+            Sign up
           </Button>
-          {mutation.error && (
-            <p className="text-xs text-red-700">{mutation.error.message}</p>
-          )}
         </div>
       </div>
-      <img
-        src="/createAccountImage.png"
-        alt=""
-        className="absolute bottom-0 w-full"
-      />
+      <img src="/signInImage.png" alt="" className="absolute bottom-0 w-full" />
     </main>
   );
 };

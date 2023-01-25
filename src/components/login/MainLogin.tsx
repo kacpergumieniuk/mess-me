@@ -21,7 +21,9 @@ export const MainLogin = ({ handleSetLoginPageState }: MainLogin) => {
           veniam consequat sunt nostrud amet.
         </p>
         <div className="flex justify-center gap-[8px]">
-          <Button>Sign in</Button>
+          <Button onClick={() => handleSetLoginPageState("login")}>
+            Sign in
+          </Button>
           <Button
             variant="black"
             onClick={() => handleSetLoginPageState("signup")}
