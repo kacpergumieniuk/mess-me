@@ -40,7 +40,7 @@ export const CreateAccount = ({ handleSetLoginPageState }: CreateAccount) => {
 
   const handleSubmit = () => {
     mutation.mutate(
-      { email: emailValue, password: passwordValue },
+      { email: emailValue, password: passwordValue, name: "" },
       {
         onSuccess: () => {
           handleSetLoginPageState("login");

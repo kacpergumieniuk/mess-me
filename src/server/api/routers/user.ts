@@ -9,7 +9,9 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   registerUser: publicProcedure
-    .input(z.object({ email: z.string(), password: z.string() }))
+    .input(
+      z.object({ email: z.string(), password: z.string(), name: z.string() })
+    )
     .mutation(async ({ input, ctx }) => {
       const user = await isUniqueEmail(ctx, input.email);
       const isPasswordCorrectRes = isPasswordCorrect(input.password);
