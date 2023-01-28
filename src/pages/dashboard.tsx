@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { BottomNavbar } from "../components/dashboard/BottomNavbar/BottomNavbar";
+import { Settings } from "../components/dashboard/settings/Settings";
 import { Navbar } from "../components/navbar/Navbar";
 
 export type DashboardSection = "main" | "settings" | "friends" | "add";
@@ -16,11 +17,11 @@ const dashboard = () => {
   }, [status]);
   return (
     <div
-      className="relative h-screen w-screen bg-bg-color text-white"
+      className="relative flex h-screen w-screen flex-col text-white"
       onClick={() => console.log(data, status)}
     >
       <Navbar />
-      <p>hello {data?.user?.email}</p>
+      {currentDashboardSection === "settings" && <Settings />}
       <BottomNavbar setCurrentDashboardSection={setCurrentDasboardSection} />
     </div>
   );

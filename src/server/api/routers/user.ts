@@ -1,8 +1,8 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import {
+  findUserByEmail,
   isPasswordCorrect,
-  isUniqueEmail,
 } from "../../../utils/userRouterHelperFunctions";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -13,7 +13,7 @@ export const userRouter = createTRPCRouter({
       z.object({ email: z.string(), password: z.string(), name: z.string() })
     )
     .mutation(async ({ input, ctx }) => {
-      const user = await isUniqueEmail(ctx, input.email);
+      const user = await findUserByEmail(ctx, input.email);
       const isPasswordCorrectRes = isPasswordCorrect(input.password);
       if (user) {
         throw new TRPCError({
@@ -31,5 +31,18 @@ export const userRouter = createTRPCRouter({
         data: input,
       });
       return newlyCreatedUser;
+    }),
+  addNameToUser: publicProcedure
+    .input(z.object({ name: z.string(), email: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const updatedNameUser = await ctx.prisma.user.update({
+        where: {
+          email: input.email,
+        },
+        data: {
+          name: input.name,
+        },
+      });
+      return updatedNameUser;
     }),
 });

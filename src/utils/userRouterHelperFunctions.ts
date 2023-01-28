@@ -1,4 +1,4 @@
-export const isUniqueEmail = async (ctx: any, passedEmail: string) => {
+export const findUserByEmail = async (ctx: any, passedEmail: string) => {
   const user = await ctx.prisma.user.findUnique({
     where: {
       email: passedEmail,

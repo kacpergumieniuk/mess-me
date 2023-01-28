@@ -28,7 +28,7 @@ const bottomNavOptions: BottomNavOption[] = [
 
 export const BottomNavbar = ({ setCurrentDashboardSection }: BottomNavbar) => {
   return (
-    <div className="absolute bottom-0 flex w-full justify-around py-[13px] px-[24px]">
+    <div className="absolute bottom-0 z-50 flex w-full justify-around bg-bg-color py-[13px] px-[24px]">
       {bottomNavOptions.map((option) => (
         <BottomNavbarButton
           label={option.label}
