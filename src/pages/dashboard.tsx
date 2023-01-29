@@ -63,6 +63,7 @@ const dashboard = () => {
               {currentDashboardSection === "settings" && <Settings />}
               <BottomNavbar
                 setCurrentDashboardSection={setCurrentDasboardSection}
+                currentDashboardSection={currentDashboardSection}
               />
             </div>
           ) : (
