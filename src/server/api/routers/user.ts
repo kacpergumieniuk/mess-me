@@ -45,4 +45,11 @@ export const userRouter = createTRPCRouter({
       });
       return updatedNameUser;
     }),
+
+  getUserByEmail: publicProcedure
+    .input(z.object({ email: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const userByEmail = await findUserByEmail(ctx, input.email);
+      return userByEmail;
+    }),
 });
