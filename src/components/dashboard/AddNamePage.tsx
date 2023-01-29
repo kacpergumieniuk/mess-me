@@ -27,7 +27,7 @@ export const AddNamePage = ({ setAddNameState }: AddNamePage) => {
           onSuccess: () => {
             toast.success("Name added succesfuly!! 🦄", {
               position: "bottom-center",
-              autoClose: 2000,
+              autoClose: 1500,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: false,
@@ -38,8 +38,6 @@ export const AddNamePage = ({ setAddNameState }: AddNamePage) => {
           },
         }
       );
-    } else {
-      console.log(nameValue);
     }
   };
 

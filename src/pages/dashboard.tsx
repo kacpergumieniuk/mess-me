@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import { type } from "os";
 import React, { useEffect, useState } from "react";
 import { AddNamePage } from "../components/dashboard/AddNamePage";
 import { BottomNavbar } from "../components/dashboard/BottomNavbar/BottomNavbar";
