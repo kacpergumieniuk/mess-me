@@ -32,7 +32,7 @@ export const userRouter = createTRPCRouter({
       });
       return newlyCreatedUser;
     }),
-  addNameToUser: publicProcedure
+  changeUsername: publicProcedure
     .input(z.object({ name: z.string(), email: z.string() }))
     .mutation(async ({ input, ctx }) => {
       const updatedNameUser = await ctx.prisma.user.update({

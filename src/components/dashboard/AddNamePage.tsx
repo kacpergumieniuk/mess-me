@@ -11,7 +11,7 @@ interface AddNamePage {
 }
 
 export const AddNamePage = ({ setAddNameState }: AddNamePage) => {
-  const addNameMutation = api.user.addNameToUser.useMutation();
+  const addNameMutation = api.user.changeUsername.useMutation();
   const { data } = useSession();
 
   const [nameValue, setNameValue] = useState<string>();

@@ -12,7 +12,7 @@ export type DashboardSection = "main" | "settings" | "friends" | "add";
 const dashboard = () => {
   const { data, status } = useSession();
 
-  const [user, setUser] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -21,16 +21,17 @@ const dashboard = () => {
 
   const [addNameState, setAddNameState] = useState<boolean>(false);
 
-  const { data: getUserData } = api.user.getUserByEmail.useQuery(
-    { email: user },
-    {
-      enabled: !!user,
-      onSuccess: (data) => {
-        setIsLoading(false);
-        handleCheckIfNameIsSet(data.name);
-      },
-    }
-  );
+  const { data: getUserData, refetch: refetchUser } =
+    api.user.getUserByEmail.useQuery(
+      { email: userEmail },
+      {
+        enabled: !!userEmail,
+        onSuccess: (data) => {
+          setIsLoading(false);
+          handleCheckIfNameIsSet(data.name);
+        },
+      }
+    );
 
   const handleSetAddNameState = (value: boolean) => {
     setAddNameState(value);
@@ -46,9 +47,9 @@ const dashboard = () => {
     if (
       data &&
       typeof data.user?.email === "string" &&
-      user !== data.user.email
+      userEmail !== data.user.email
     ) {
-      setUser(data.user.email);
+      setUserEmail(data.user.email);
     }
   }, [status]);
 
@@ -59,8 +60,14 @@ const dashboard = () => {
           {!isLoading ? (
             <div className="relative flex h-screen w-screen flex-col text-black">
               <Navbar />
-              {getUserData && getUserData.name}
-              {currentDashboardSection === "settings" && <Settings />}
+              {/* {getUserData && getUserData.name} */}
+              {currentDashboardSection === "settings" && (
+                <Settings
+                  name={getUserData.name}
+                  email={userEmail}
+                  refetchUser={refetchUser}
+                />
+              )}
               <BottomNavbar
                 setCurrentDashboardSection={setCurrentDasboardSection}
                 currentDashboardSection={currentDashboardSection}
