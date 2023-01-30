@@ -39,7 +39,7 @@ export const Settings = ({ name, email, refetchUser }: ISettings) => {
     <div className="flex-1">
       <div className="mt-[24px] px-[24px]">
         <h1 className="mb-[24px] text-2xl font-black">Settings</h1>
-        <h2 className="mb-[24px]">Private</h2>
+        {/* <h2 className="mb-[24px]">Private</h2> */}
         <div>
           <div className="flex flex-col">
             <label

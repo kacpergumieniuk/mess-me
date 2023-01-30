@@ -21,6 +21,7 @@ const dashboard = () => {
 
   const [addNameState, setAddNameState] = useState<boolean>(false);
 
+  const isArrow = currentDashboardSection !== "main";
   const { data: getUserData, refetch: refetchUser } =
     api.user.getUserByEmail.useQuery(
       { email: userEmail },
@@ -43,6 +44,10 @@ const dashboard = () => {
     }
   };
 
+  const handleBackToMain = () => {
+    setCurrentDasboardSection("main");
+  };
+
   useEffect(() => {
     if (
       data &&
@@ -59,7 +64,7 @@ const dashboard = () => {
         <>
           {!isLoading ? (
             <div className="relative flex h-screen w-screen flex-col text-black">
-              <Navbar />
+              <Navbar isArrow={isArrow} handleBackToMain={handleBackToMain} />
               {/* {getUserData && getUserData.name} */}
               {currentDashboardSection === "settings" && (
                 <Settings
