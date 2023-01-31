@@ -52,4 +52,8 @@ export const userRouter = createTRPCRouter({
       const userByEmail = await findUserByEmail(ctx, input.email);
       return userByEmail;
     }),
+  getAllUsers: publicProcedure.query(async ({ ctx }) => {
+    const allUsers = await ctx.prisma.user.findMany();
+    return allUsers;
+  }),
 });

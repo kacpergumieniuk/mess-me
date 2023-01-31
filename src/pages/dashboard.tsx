@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
+import { AddFriend } from "../components/dashboard/addFriend/AddFriend";
 import { AddNamePage } from "../components/dashboard/AddNamePage";
 import { BottomNavbar } from "../components/dashboard/BottomNavbar/BottomNavbar";
 import { Settings } from "../components/dashboard/settings/Settings";
@@ -73,6 +74,7 @@ const dashboard = () => {
                   refetchUser={refetchUser}
                 />
               )}
+              {currentDashboardSection === "add" && <AddFriend />}
               <BottomNavbar
                 setCurrentDashboardSection={setCurrentDasboardSection}
                 currentDashboardSection={currentDashboardSection}

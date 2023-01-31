@@ -2,3 +2,4 @@
 [] - Make settings view
 [] - Make add friend view
 [] - Make friends view
+[] - Make more clean code in routers
