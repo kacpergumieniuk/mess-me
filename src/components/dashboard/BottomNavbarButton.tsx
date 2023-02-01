@@ -21,7 +21,10 @@ export const BottomNavbarButton = ({
       className={`${isSectionActive ? "text-white" : "text-grayish"}`}
       onClick={() => setCurrentDashboardSection(value)}
     >
-      {label}
+      <div className="flex gap-1">
+        <img src={`${value}.svg`} alt="" />
+        <p>{label}</p>
+      </div>
     </button>
   );
 };
