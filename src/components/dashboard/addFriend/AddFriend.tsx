@@ -16,7 +16,7 @@ export const AddFriend = () => {
         {allUsers?.map(
           (user) =>
             data?.user?.email !== user.email && (
-              <AddFriendTab name={user.name} />
+              <AddFriendTab name={user.name} email={user.email} key={user.id} />
             )
         )}
       </div>

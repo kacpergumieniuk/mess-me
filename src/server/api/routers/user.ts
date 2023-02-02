@@ -4,6 +4,7 @@ import {
   findUserByEmail,
   isPasswordCorrect,
 } from "../../../utils/userRouterHelperFunctions";
+import type { User } from "@prisma/client";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
@@ -56,4 +57,29 @@ export const userRouter = createTRPCRouter({
     const allUsers = await ctx.prisma.user.findMany();
     return allUsers;
   }),
+  addUserToFriend: publicProcedure
+    .input(
+      z.object({ userInvitingEmail: z.string(), invitedUserEmail: z.string() })
+    ) // Need to be changed to id instead of email for consistency
+    .mutation(async ({ input, ctx }) => {
+      /*       const userToAdd: User = await findUserByEmail(
+        ctx,
+        input.invitedUserEmail
+      ); */
+
+      const updatedUser = await ctx.prisma.user.update({
+        where: {
+          email: input.userInvitingEmail,
+        },
+        data: {
+          friends: {
+            connect: {
+              email: input.invitedUserEmail,
+            },
+          },
+        },
+      });
+
+      return updatedUser;
+    }),
 });
