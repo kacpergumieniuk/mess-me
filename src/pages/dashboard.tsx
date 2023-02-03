@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AddFriend } from "../components/dashboard/addFriend/AddFriend";
 import { AddNamePage } from "../components/dashboard/AddNamePage";
 import { BottomNavbar } from "../components/dashboard/BottomNavbar/BottomNavbar";
+import { Friends } from "../components/dashboard/friends/Friends";
 import { Settings } from "../components/dashboard/settings/Settings";
 import { LoadingFullPage } from "../components/LoadingFullPage";
 import { Navbar } from "../components/navbar/Navbar";
@@ -69,7 +70,6 @@ const dashboard = () => {
               onClick={() => console.log(getUserData)}
             >
               <Navbar isArrow={isArrow} handleBackToMain={handleBackToMain} />
-              {/* {getUserData && getUserData.name} */}
               {currentDashboardSection === "settings" && (
                 <Settings
                   name={getUserData.name}
@@ -83,6 +83,7 @@ const dashboard = () => {
                   refetchUser={refetchUser}
                 />
               )}
+              {currentDashboardSection === "friends" && <Friends />}
               <BottomNavbar
                 setCurrentDashboardSection={setCurrentDasboardSection}
                 currentDashboardSection={currentDashboardSection}
