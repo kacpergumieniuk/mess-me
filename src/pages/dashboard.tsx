@@ -64,7 +64,10 @@ const dashboard = () => {
       {!addNameState ? (
         <>
           {!isLoading ? (
-            <div className="relative flex h-screen w-screen flex-col text-black">
+            <div
+              className="relative flex h-screen w-screen flex-col text-black"
+              onClick={() => console.log(getUserData)}
+            >
               <Navbar isArrow={isArrow} handleBackToMain={handleBackToMain} />
               {/* {getUserData && getUserData.name} */}
               {currentDashboardSection === "settings" && (
@@ -74,7 +77,12 @@ const dashboard = () => {
                   refetchUser={refetchUser}
                 />
               )}
-              {currentDashboardSection === "add" && <AddFriend />}
+              {currentDashboardSection === "add" && (
+                <AddFriend
+                  friends={getUserData.friends}
+                  refetchUser={refetchUser}
+                />
+              )}
               <BottomNavbar
                 setCurrentDashboardSection={setCurrentDasboardSection}
                 currentDashboardSection={currentDashboardSection}

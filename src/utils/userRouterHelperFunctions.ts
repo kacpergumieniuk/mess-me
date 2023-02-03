@@ -3,6 +3,9 @@ export const findUserByEmail = async (ctx: any, passedEmail: string) => {
     where: {
       email: passedEmail,
     },
+    include: {
+      friends: true,
+    },
   });
   return user;
 };

@@ -1,18 +1,28 @@
+import { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
 
 interface IAddFriendTab {
   name: string;
   email: string;
+  disabled: boolean;
+  refetchUser: Function;
 }
 
-export const AddFriendTab = ({ name, email }: IAddFriendTab) => {
+export const AddFriendTab = ({
+  name,
+  email,
+  disabled,
+  refetchUser,
+}: IAddFriendTab) => {
   const addUserToFriendMutation = api.user.addUserToFriend.useMutation();
 
   const { data } = useSession();
 
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(disabled);
+
+  useEffect(() => {});
 
   const handleAddFriend = () => {
     if (typeof data?.user?.email === "string") {
@@ -24,6 +34,7 @@ export const AddFriendTab = ({ name, email }: IAddFriendTab) => {
         {
           onSuccess: () => {
             setButtonDisabled(true);
+            refetchUser();
           },
         }
       );
