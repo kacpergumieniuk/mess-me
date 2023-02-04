@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { AddFriend } from "../components/dashboard/addFriend/AddFriend";
@@ -79,11 +80,14 @@ const dashboard = () => {
               )}
               {currentDashboardSection === "add" && (
                 <AddFriend
-                  friends={getUserData.friends}
+                  friends={getUserData.invitedUsers}
                   refetchUser={refetchUser}
                 />
               )}
               {currentDashboardSection === "friends" && <Friends />}
+              {currentDashboardSection === "main" && (
+                <div className="flex-1 overflow-auto"></div>
+              )}
               <BottomNavbar
                 setCurrentDashboardSection={setCurrentDasboardSection}
                 currentDashboardSection={currentDashboardSection}

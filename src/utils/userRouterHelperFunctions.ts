@@ -4,7 +4,7 @@ export const findUserByEmail = async (ctx: any, passedEmail: string) => {
       email: passedEmail,
     },
     include: {
-      friends: true,
+      invitedUsers: true,
     },
   });
   return user;

@@ -72,7 +72,7 @@ export const userRouter = createTRPCRouter({
           email: input.userInvitingEmail,
         },
         data: {
-          friends: {
+          invitedUsers: {
             connect: {
               email: input.invitedUserEmail,
             },
