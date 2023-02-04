@@ -18,7 +18,7 @@ export const AddFriend = ({ friends, refetchUser }: IAddFriend) => {
 
   const { data: allUsers } = api.user.getAllUsers.useQuery();
   return (
-    <div className="flex-1">
+    <div className="flex-1 overflow-auto">
       <div className="mt-[24px] px-[24px]">
         <h1 className="mb-[24px] text-2xl font-black">Add new friend</h1>
         {allUsers?.map(

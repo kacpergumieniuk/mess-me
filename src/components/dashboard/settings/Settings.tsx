@@ -36,7 +36,7 @@ export const Settings = ({ name, email, refetchUser }: ISettings) => {
     );
   };
   return (
-    <div className="flex-1">
+    <div className="flex-1 overflow-auto">
       <div className="mt-[24px] px-[24px]">
         <h1 className="mb-[24px] text-2xl font-black">Settings</h1>
         {/* <h2 className="mb-[24px]">Private</h2> */}
