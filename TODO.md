@@ -13,4 +13,4 @@ WORK IN PROGRESS
 
 BUGS
 
-[] - Name not passed to Settings after initial name
+[Fixed] - Name not passed to Settings after initial name

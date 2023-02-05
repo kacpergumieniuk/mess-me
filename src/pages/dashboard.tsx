@@ -99,7 +99,10 @@ const dashboard = () => {
           )}
         </>
       ) : (
-        <AddNamePage setAddNameState={handleSetAddNameState} />
+        <AddNamePage
+          setAddNameState={handleSetAddNameState}
+          refetchUser={refetchUser}
+        />
       )}
     </>
   );

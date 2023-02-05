@@ -6,11 +6,12 @@ import { Button } from "../Button";
 import { Navbar } from "../navbar/Navbar";
 import "react-toastify/dist/ReactToastify.css";
 
-interface AddNamePage {
+interface IAddNamePage {
   setAddNameState: (value: boolean) => void;
+  refetchUser: Function;
 }
 
-export const AddNamePage = ({ setAddNameState }: AddNamePage) => {
+export const AddNamePage = ({ setAddNameState, refetchUser }: IAddNamePage) => {
   const addNameMutation = api.user.changeUsername.useMutation();
   const { data } = useSession();
 
@@ -25,6 +26,7 @@ export const AddNamePage = ({ setAddNameState }: AddNamePage) => {
         },
         {
           onSuccess: () => {
+            refetchUser();
             toast.success("Name added succesfuly!! 🦄", {
               position: "bottom-center",
               autoClose: 1500,
