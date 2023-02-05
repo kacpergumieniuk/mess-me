@@ -73,14 +73,14 @@ const dashboard = () => {
               <Navbar isArrow={isArrow} handleBackToMain={handleBackToMain} />
               {currentDashboardSection === "settings" && (
                 <Settings
-                  name={getUserData.name}
+                  name={getUserData!.name}
                   email={userEmail}
                   refetchUser={refetchUser}
                 />
               )}
               {currentDashboardSection === "add" && (
                 <AddFriend
-                  friends={getUserData.invitedUsers}
+                  invitedUsers={getUserData!.invitedUsers}
                   refetchUser={refetchUser}
                 />
               )}

@@ -5,18 +5,18 @@ import { api } from "../../../utils/api";
 import { AddFriendTab } from "./AddFriendTab";
 
 interface IAddFriend {
-  friends: User[];
+  invitedUsers: User[];
   refetchUser: Function;
 }
 
-export const AddFriend = ({ friends, refetchUser }: IAddFriend) => {
+export const AddFriend = ({ invitedUsers, refetchUser }: IAddFriend) => {
   const { data, status } = useSession();
 
   const { data: allUsers } = api.user.getAllUsers.useQuery();
 
-  const friendsEmails = friends
-    ? friends.map((friend) => {
-        return friend.email;
+  const friendsEmails = invitedUsers
+    ? invitedUsers.map((invitedUser) => {
+        return invitedUser.email;
       })
     : [];
 
@@ -26,7 +26,7 @@ export const AddFriend = ({ friends, refetchUser }: IAddFriend) => {
   return (
     <div
       className="flex-1 overflow-auto"
-      onClick={() => console.log(friends, allUsers)}
+      onClick={() => console.log(invitedUsers, allUsers)}
     >
       <div className="mt-[24px] px-[24px]">
         <h1 className="mb-[24px] text-2xl font-black">Add new friend</h1>

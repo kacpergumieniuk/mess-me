@@ -7,6 +7,7 @@ import {
 import type { User } from "@prisma/client";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { IUser } from "../../../types/apiTypes";
 
 export const userRouter = createTRPCRouter({
   registerUser: publicProcedure
@@ -50,7 +51,7 @@ export const userRouter = createTRPCRouter({
   getUserByEmail: publicProcedure
     .input(z.object({ email: z.string() }))
     .query(async ({ input, ctx }) => {
-      const userByEmail = await findUserByEmail(ctx, input.email);
+      const userByEmail: IUser = await findUserByEmail(ctx, input.email);
       return userByEmail;
     }),
   getAllUsers: publicProcedure.query(async ({ ctx }) => {
