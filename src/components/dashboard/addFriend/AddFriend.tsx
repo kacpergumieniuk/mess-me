@@ -1,20 +1,26 @@
 import { User } from ".prisma/client";
 import { useSession } from "next-auth/react";
 import React from "react";
+import { IUser } from "../../../types/apiTypes";
 import { api } from "../../../utils/api";
 import { AddFriendTab } from "./AddFriendTab";
 
 interface IAddFriend {
-  invitedUsers: User[];
+  invitedUsers: IUser[];
+  invitationsFromUsers: IUser[];
   refetchUser: Function;
 }
 
-export const AddFriend = ({ invitedUsers, refetchUser }: IAddFriend) => {
+export const AddFriend = ({
+  invitedUsers,
+  refetchUser,
+  invitationsFromUsers,
+}: IAddFriend) => {
   const { data, status } = useSession();
 
   const { data: allUsers } = api.user.getAllUsers.useQuery();
 
-  const friendsEmails = invitedUsers
+  const invitedUsersEmails = invitedUsers
     ? invitedUsers.map((invitedUser) => {
         return invitedUser.email;
       })
@@ -36,11 +42,17 @@ export const AddFriend = ({ invitedUsers, refetchUser }: IAddFriend) => {
                 name={user.name}
                 email={user.email}
                 key={user.id}
-                disabled={friendsEmails.includes(user.email)}
+                disabled={invitedUsersEmails.includes(user.email)}
                 refetchUser={refetchUser}
               />
             ))
           : "No users to display"}
+        <h1 className="mb-[24px] text-2xl font-black">Invitations</h1>
+        {invitationsFromUsers?.length
+          ? invitationsFromUsers.map((user) => (
+              <p key={user.id}>{user.email}</p>
+            ))
+          : "No users invited you"}
       </div>
     </div>
   );

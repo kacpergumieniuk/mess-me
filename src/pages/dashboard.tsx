@@ -82,6 +82,7 @@ const dashboard = () => {
                 <AddFriend
                   invitedUsers={getUserData!.invitedUsers}
                   refetchUser={refetchUser}
+                  invitationsFromUsers={getUserData!.invitationsFromUsers}
                 />
               )}
               {currentDashboardSection === "friends" && <Friends />}
