@@ -7,10 +7,16 @@ import { BottomNavbar } from "../components/dashboard/BottomNavbar/BottomNavbar"
 import { Friends } from "../components/dashboard/friends/Friends";
 import { Settings } from "../components/dashboard/settings/Settings";
 import { LoadingFullPage } from "../components/LoadingFullPage";
+import { MessageView } from "../components/messages/MessageView";
 import { Navbar } from "../components/navbar/Navbar";
 import { api } from "../utils/api";
 
-export type DashboardSection = "main" | "settings" | "friends" | "add";
+export type DashboardSection =
+  | "main"
+  | "settings"
+  | "friends"
+  | "add"
+  | "messages";
 
 const dashboard = () => {
   const { data, status } = useSession();
@@ -20,7 +26,7 @@ const dashboard = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [currentDashboardSection, setCurrentDasboardSection] =
-    useState<DashboardSection>("main");
+    useState<DashboardSection>("messages");
 
   const [addNameState, setAddNameState] = useState<boolean>(false);
 
@@ -89,10 +95,13 @@ const dashboard = () => {
               {currentDashboardSection === "main" && (
                 <div className="flex-1 overflow-auto"></div>
               )}
-              <BottomNavbar
-                setCurrentDashboardSection={setCurrentDasboardSection}
-                currentDashboardSection={currentDashboardSection}
-              />
+              {currentDashboardSection === "messages" && <MessageView />}
+              {currentDashboardSection != "messages" && (
+                <BottomNavbar
+                  setCurrentDashboardSection={setCurrentDasboardSection}
+                  currentDashboardSection={currentDashboardSection}
+                />
+              )}
             </div>
           ) : (
             <LoadingFullPage />
