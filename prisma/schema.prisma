@@ -20,6 +20,7 @@ model Example {
   updatedAt DateTime @updatedAt
 }
 
+
 model User {
   id                   String   @id @default(cuid())
   email                String   @unique
@@ -27,9 +28,20 @@ model User {
   password             String
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
-  invitedUsers         User[]   @relation("friends")
-  invitationsFromUsers User[]   @relation("friends")
+  invitedUsers         Friendship[]   @relation("inviting")
+  invitationsFromUsers Friendship[]   @relation("invitedBy")
 }
+
+model Friendship {
+  inviting User @relation("inviting", fields: [userId1], references: [id])
+  invitedBy User @relation("invitedBy", fields: [userId2], references: [id])
+  userId1 String 
+  userId2 String
+  status String
+  @@id([userId1, userId2])
+}
+
+
 
 // Necessary for Next auth
 //model Account {
