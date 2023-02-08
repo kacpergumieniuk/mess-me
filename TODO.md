@@ -10,6 +10,7 @@ TODO
 WORK IN PROGRESS
 
 [] - Friends tab
+[] - New schema
 
 BUGS
 
