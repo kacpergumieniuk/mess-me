@@ -1,12 +1,17 @@
-import React from "react";
-import { Message } from "./Message";
+import React, { useState } from "react";
+import { IMessage, Message } from "./Message";
 
-export const MessagesMainContent = () => {
+interface IMessagesMainContent {
+  messages: IMessage[];
+}
+
+export const MessagesMainContent = ({ messages }: IMessagesMainContent) => {
   return (
     <div className="flex-1 overflow-auto px-[24px] pb-[16px]">
       <div className=" flex flex-col first:mt-[16px]">
-        <Message author={"interlocutor"} value={"edsddd"} />
-        <Message author={"user"} value={"siemasss"} />
+        {messages.map((message, key) => (
+          <Message author={message.author} key={key} value={message.value} />
+        ))}
       </div>
     </div>
   );
