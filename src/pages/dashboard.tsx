@@ -26,7 +26,7 @@ const dashboard = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [currentDashboardSection, setCurrentDasboardSection] =
-    useState<DashboardSection>("messages");
+    useState<DashboardSection>("main");
 
   const [addNameState, setAddNameState] = useState<boolean>(false);
 
