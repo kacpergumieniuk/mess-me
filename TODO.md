@@ -11,6 +11,7 @@ WORK IN PROGRESS
 
 [] - Friends tab
 [] - New schema
+[] - Adding friends
 
 BUGS
 
