@@ -7,4 +7,5 @@ export interface IUser {
   updatedAt: Date;
   invitedUsers: IUser[];
   invitationsFromUsers: IUser[];
+  friends: string;
 }

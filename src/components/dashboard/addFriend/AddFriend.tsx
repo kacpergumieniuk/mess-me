@@ -39,6 +39,7 @@ export const AddFriend = ({
         {usersWithoutMe?.length
           ? usersWithoutMe?.map((user) => (
               <AddFriendTab
+                variant={"add"}
                 name={user.name}
                 email={user.email}
                 key={user.id}
@@ -50,7 +51,14 @@ export const AddFriend = ({
         <h1 className="mb-[24px] text-2xl font-black">Invitations</h1>
         {invitationsFromUsers?.length
           ? invitationsFromUsers.map((user) => (
-              <p key={user.id}>{user.email}</p>
+              <AddFriendTab
+                variant={"invitation"}
+                name={user.name}
+                email={user.email}
+                key={user.id}
+                disabled={invitedUsersEmails.includes(user.email)}
+                refetchUser={refetchUser}
+              />
             ))
           : "No users invited you"}
       </div>

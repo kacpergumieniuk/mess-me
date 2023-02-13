@@ -8,6 +8,7 @@ import type { User } from "@prisma/client";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { IUser } from "../../../types/apiTypes";
+import { handleAddUserEmailToFriendsString } from "../../../utils/handleAddUserEmailToFriendsString";
 
 export const userRouter = createTRPCRouter({
   registerUser: publicProcedure
@@ -82,5 +83,45 @@ export const userRouter = createTRPCRouter({
       });
 
       return updatedUser;
+    }),
+  acceptFriendsInvitation: publicProcedure
+    .input(
+      z.object({ userInvitingEmail: z.string(), invitedUserEmail: z.string() })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const invitingUser = await findUserByEmail(ctx, input.userInvitingEmail);
+      const invitedUser = await findUserByEmail(ctx, input.invitedUserEmail);
+
+      //Add invited user to inviting user friends
+      const newInvitingUserFriendsString = handleAddUserEmailToFriendsString(
+        invitingUser.friends,
+        input.invitedUserEmail
+      );
+
+      const updatedInvitingUser = await ctx.prisma.user.update({
+        where: {
+          email: input.userInvitingEmail,
+        },
+        data: {
+          friends: newInvitingUserFriendsString,
+        },
+      });
+
+      //Add inviting user to invited user friends
+      const newInvitedUserFriendsString = handleAddUserEmailToFriendsString(
+        invitedUser.friends,
+        input.userInvitingEmail
+      );
+
+      const updatedInvitedUser = await ctx.prisma.user.update({
+        where: {
+          email: input.invitedUserEmail,
+        },
+        data: {
+          friends: newInvitedUserFriendsString,
+        },
+      });
+
+      return [updatedInvitedUser, updatedInvitingUser];
     }),
 });
