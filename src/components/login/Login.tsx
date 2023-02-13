@@ -41,10 +41,7 @@ export const Login = () => {
   };
 
   return (
-    <main
-      className="relative h-screen w-screen bg-bg-color text-white"
-      onClick={() => console.log(status, data)}
-    >
+    <main className="relative h-screen w-screen bg-bg-color text-white">
       <Navbar />
       <div className=" px-[46px] text-center">
         <h1 className=" mb-[24px] text-2xl font-black">Sign up</h1>

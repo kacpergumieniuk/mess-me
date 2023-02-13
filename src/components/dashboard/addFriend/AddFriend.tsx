@@ -30,10 +30,7 @@ export const AddFriend = ({
     return data?.user?.email !== user.email;
   });
   return (
-    <div
-      className="flex-1 overflow-auto"
-      onClick={() => console.log(invitedUsers, allUsers)}
-    >
+    <div className="flex-1 overflow-auto">
       <div className="mt-[24px] px-[24px]">
         <h1 className="mb-[24px] text-2xl font-black">Add new friend</h1>
         {usersWithoutMe?.length

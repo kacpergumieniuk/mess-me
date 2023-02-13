@@ -72,10 +72,7 @@ const dashboard = () => {
       {!addNameState ? (
         <>
           {!isLoading ? (
-            <div
-              className="relative flex h-screen w-screen flex-col text-black"
-              onClick={() => console.log(getUserData)}
-            >
+            <div className="relative flex h-screen w-screen flex-col text-black">
               <Navbar isArrow={isArrow} handleBackToMain={handleBackToMain} />
               {currentDashboardSection === "settings" && (
                 <Settings
@@ -91,7 +88,9 @@ const dashboard = () => {
                   invitationsFromUsers={getUserData!.invitationsFromUsers}
                 />
               )}
-              {currentDashboardSection === "friends" && <Friends />}
+              {currentDashboardSection === "friends" && (
+                <Friends userEmail={userEmail} />
+              )}
               {currentDashboardSection === "main" && (
                 <div className="flex-1 overflow-auto"></div>
               )}

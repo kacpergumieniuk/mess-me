@@ -9,6 +9,7 @@ import type { User } from "@prisma/client";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { IUser } from "../../../types/apiTypes";
 import { handleAddUserEmailToFriendsString } from "../../../utils/handleAddUserEmailToFriendsString";
+import { prepFriendsArrayFunction } from "../../../utils/prepFriendsArrayFunction";
 
 export const userRouter = createTRPCRouter({
   registerUser: publicProcedure
@@ -123,5 +124,19 @@ export const userRouter = createTRPCRouter({
       });
 
       return [updatedInvitedUser, updatedInvitingUser];
+    }),
+  getUserFriends: publicProcedure
+    .input(z.object({ userEmail: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const user = await findUserByEmail(ctx, input.userEmail);
+      const friendsArr = prepFriendsArrayFunction(user.friends);
+      const friends = await ctx.prisma.user.findMany({
+        where: {
+          email: {
+            in: friendsArr,
+          },
+        },
+      });
+      return friends;
     }),
 });
