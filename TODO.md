@@ -12,6 +12,7 @@ WORK IN PROGRESS
 [] - Friends tab
 [] - New schema
 [] - Adding friends
+[] - Conversation
 
 BUGS
 
