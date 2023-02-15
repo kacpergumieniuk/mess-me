@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect } from "react";
 import { IUser } from "../../../types/apiTypes";
 import { api } from "../../../utils/api";
+import { FriendTab } from "./FriendTab";
 
 interface IFriends {
   userEmail: string;
@@ -17,7 +18,7 @@ export const Friends = ({ userEmail }: IFriends) => {
       <div className="mt-[24px] px-[24px]">
         <h1 className="mb-[24px] text-2xl font-black">My friends</h1>
         {friendsData?.map((friend) => (
-          <p>{friend.name}</p>
+          <FriendTab name={friend.name} key={friend.id} />
         ))}
       </div>
     </div>
