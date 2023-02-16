@@ -1,1 +1,2 @@
-export const prepFriendsArrayFunction = (val: string) => val.split(",");
+export const prepFriendsArrayFunction = (val: string): string[] =>
+  val.split(",");
