@@ -17,3 +17,7 @@ WORK IN PROGRESS
 BUGS
 
 [Fixed] - Name not passed to Settings after initial name
+
+DONE
+
+[] - Friends tab
