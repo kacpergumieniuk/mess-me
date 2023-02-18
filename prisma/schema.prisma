@@ -13,6 +13,7 @@ datasource db {
   // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
   url      = env("DATABASE_URL")
 }
+
 model User {
   id                   String   @id @default(cuid())
   email                String   @unique
@@ -23,6 +24,25 @@ model User {
   invitedUsers         User[]   @relation("invitation")
   invitationsFromUsers User[]   @relation("invitation")
   friends              String   @default("")
+  conversations Conversation[] @relation("user_conversation")
+}
+
+model Conversation {
+  id String @id @default(cuid())
+  messages Message[]
+  users User[] @relation("user_conversation")
+    createdAt            DateTime @default(now())
+
+}
+
+model Message {
+  id String @id @default(cuid())
+  text String
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String
+  userId String
+    createdAt            DateTime @default(now())
+
 }
 
 // Necessary for Next auth
