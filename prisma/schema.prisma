@@ -32,7 +32,6 @@ model Conversation {
   messages Message[]
   users User[] @relation("user_conversation")
     createdAt            DateTime @default(now())
-
 }
 
 model Message {

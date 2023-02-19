@@ -1,11 +1,11 @@
 TODO
 
 [] - Make toast emission exportable function with text and time props.
-[] - Make settings view
 [] - Make add friend view
 [] - Make friends view
 [] - Make more clean code in routers
 [] - Create global context for user and refetch user
+[] - Automatic sign in after sign up
 
 WORK IN PROGRESS
 
@@ -21,3 +21,4 @@ BUGS
 DONE
 
 [] - Friends tab
+[] - Make settings view

@@ -18,7 +18,7 @@ export const AddFriendTab = ({
   refetchUser,
   variant,
 }: IAddFriendTab) => {
-  const addUserToFriendMutation = api.user.addUserToFriend.useMutation();
+  const addUserToFriendMutation = api.user.addUserToFriend.use();
   const acceptInvitationMutation =
     api.user.acceptFriendsInvitation.useMutation();
 

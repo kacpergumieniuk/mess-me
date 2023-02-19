@@ -12,11 +12,29 @@ export const Friends = ({ userEmail }: IFriends) => {
   const { data: friendsData } = api.user.getUserFriends.useQuery({
     userEmail: userEmail,
   });
+  const { data } = useSession();
+
+  const initializeConversationMutation =
+    api.conversation.initializeConversation.useMutation();
+
+  const handleInitializeConversation = (participantEmail: string) => {
+    if (typeof data?.user!.email === "string") {
+      initializeConversationMutation.mutate({
+        creatorEmail: data?.user?.email,
+        participantEmail: participantEmail,
+      });
+    }
+  };
 
   return (
     <div className="flex-1 overflow-auto">
       <div className="mt-[24px] px-[24px]">
-        <h1 className="mb-[24px] text-2xl font-black">My friends</h1>
+        <h1
+          className="mb-[24px] text-2xl font-black"
+          onClick={() => handleInitializeConversation("martyna@gmail.com")}
+        >
+          My friends
+        </h1>
         {friendsData?.map((friend) => (
           <FriendTab name={friend.name} key={friend.id} />
         ))}
