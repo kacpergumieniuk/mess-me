@@ -1,13 +1,18 @@
 import { IUser } from "../types/apiTypes";
 
 export const findUserByEmail = async (ctx: any, passedEmail: string) => {
-  const user = await ctx.prisma.user.findUnique({
+  const user: IUser = await ctx.prisma.user.findUnique({
     where: {
       email: passedEmail,
     },
     include: {
       invitedUsers: true,
       invitationsFromUsers: true,
+      conversations: {
+        include: {
+          users: true,
+        },
+      },
     },
   });
   return user;

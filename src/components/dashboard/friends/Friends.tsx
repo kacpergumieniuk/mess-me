@@ -1,14 +1,15 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect } from "react";
-import { IUser } from "../../../types/apiTypes";
+import { IConversation, IUser } from "../../../types/apiTypes";
 import { api } from "../../../utils/api";
 import { FriendTab } from "./FriendTab";
 
 interface IFriends {
   userEmail: string;
+  conversations: IConversation[];
 }
 
-export const Friends = ({ userEmail }: IFriends) => {
+export const Friends = ({ userEmail, conversations }: IFriends) => {
   const { data: friendsData } = api.user.getUserFriends.useQuery({
     userEmail: userEmail,
   });
@@ -31,7 +32,7 @@ export const Friends = ({ userEmail }: IFriends) => {
       <div className="mt-[24px] px-[24px]">
         <h1
           className="mb-[24px] text-2xl font-black"
-          onClick={() => handleInitializeConversation("martyna@gmail.com")}
+          onClick={() => console.log(conversations)}
         >
           My friends
         </h1>

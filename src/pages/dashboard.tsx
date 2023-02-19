@@ -89,7 +89,10 @@ const dashboard = () => {
                 />
               )}
               {currentDashboardSection === "friends" && (
-                <Friends userEmail={userEmail} />
+                <Friends
+                  userEmail={userEmail}
+                  conversations={getUserData!.conversations}
+                />
               )}
               {currentDashboardSection === "main" && (
                 <div className="flex-1 overflow-auto"></div>
