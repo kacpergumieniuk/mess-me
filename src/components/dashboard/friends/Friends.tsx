@@ -27,6 +27,17 @@ export const Friends = ({ userEmail, conversations }: IFriends) => {
     }
   };
 
+  const handleOpenConversation = (userId: string) => {
+    for (let i of conversations) {
+      for (let j of i.users) {
+        if (j.id === userId) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
   return (
     <div className="flex-1 overflow-auto">
       <div className="mt-[24px] px-[24px]">
