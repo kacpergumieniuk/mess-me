@@ -9,9 +9,8 @@ TODO
 
 WORK IN PROGRESS
 
-[] - Friends tab
 [] - New schema
-[] - Adding friends
+
 [] - Conversation
 
 BUGS
@@ -21,4 +20,6 @@ BUGS
 DONE
 
 [] - Friends tab
+[] - Friends tab
+[] - Adding friends
 [] - Make settings view
